@@ -1,0 +1,17 @@
+.form-element {
+    text-align: center;
+}
+
+.form-element > button {
+    margin-top: 10px;
+}
+
+form {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+form > * {
+    flex: 1;
+    margin: 20px;
+}

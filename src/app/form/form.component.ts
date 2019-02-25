@@ -1,23 +1,29 @@
-import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Observable } from 'rxjs';
+
+import { CustomerService } from './customer.service';
+import { Customer } from './model/customer';
 
 
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [CustomerService]
 })
 export class FormComponent implements OnInit {
 
 
   formGroup: FormGroup;
-  foods = [{
-    value: "test",
-    viewValue: "test"
-  }];
+  customers$: Observable<Array<Customer>>;
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private customerService: CustomerService
+    ) { 
+    }
 
   ngOnInit() {
     this.formGroup = this.formBuilder.group({
@@ -25,6 +31,7 @@ export class FormComponent implements OnInit {
       'startDate': [null],
       'endDate': [null]
     });
+    this.customers$ = this.customerService.findAll();
   }
 
   onSubmit(data: any) {
