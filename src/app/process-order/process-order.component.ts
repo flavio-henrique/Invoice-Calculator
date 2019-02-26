@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 import { OrderService } from './order.service';
 
@@ -6,7 +6,7 @@ import { OrderService } from './order.service';
   selector: 'app-process-order',
   templateUrl: './process-order.component.html',
   styleUrls: ['./process-order.component.scss'],
-  providers: [OrderService]
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProcessOrderComponent implements OnInit {
 

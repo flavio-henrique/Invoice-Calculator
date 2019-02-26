@@ -11,7 +11,6 @@ import { Customer } from './model/customer';
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [CustomerService]
 })
 export class FormComponent implements OnInit {
 
@@ -22,8 +21,8 @@ export class FormComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private customerService: CustomerService
-    ) { 
-    }
+  ) {
+  }
 
   ngOnInit() {
     this.formGroup = this.formBuilder.group({

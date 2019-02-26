@@ -1,10 +1,9 @@
 import { DataSource } from '@angular/cdk/collections';
 import { MatPaginator, MatSort } from '@angular/material';
 import { merge, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
-import { Order } from '../process-order/model/order';
-import { OrderService } from '../process-order/order.service';
+import { Order } from '../model/order';
+import { OrderService } from '../order.service';
 
 /**
  * Data source for the Table view. This class should
@@ -15,7 +14,7 @@ export class OrderDataSource extends DataSource<Order> {
   data: Array<Order>;
 
   constructor(
-    private paginator: MatPaginator, 
+    private paginator: MatPaginator,
     private sort: MatSort,
     private orderService: OrderService
   ) {

@@ -1,0 +1,15 @@
+.card-group {
+    display: flex;
+    flex-wrap: wrap;
+    > mat-card {
+        flex: 1;
+        margin: 20px 20px 20px 0;
+        width: 30%;
+    }
+    mat-card:not(:first-child) {
+        margin-left: 20px;
+    }
+    mat-card:last-child {
+        margin-right: 0;
+    }
+}

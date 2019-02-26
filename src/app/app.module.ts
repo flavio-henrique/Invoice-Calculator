@@ -15,7 +15,7 @@ import {
   MatSidenavModule,
   MatSortModule,
   MatTableModule,
-  MatToolbarModule,
+  MatToolbarModule, MatGridListModule, MatCardModule, MatMenuModule,
 } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -24,7 +24,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormComponent } from './form/form.component';
 import { ProcessOrderComponent } from './process-order/process-order.component';
-import { TableComponent } from './table/table.component';
+import { TableComponent } from './process-order/table/table.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +53,10 @@ import { TableComponent } from './table/table.component';
     MatToolbarModule,
     MatSidenavModule,
     MatIconModule,
-    MatListModule
+    MatListModule,
+    MatGridListModule,
+    MatCardModule,
+    MatMenuModule
   ],
   providers: [],
   bootstrap: [AppComponent]
