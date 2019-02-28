@@ -1,9 +1,12 @@
-<form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)" class="form">
+<form *ngIf="form$ | async; else loading" [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)" class="form">
   <mat-form-field>
-    <mat-select formControlName="customer" placeholder="Choose a customer">
-      <mat-option *ngFor="let customer of customers$ | async" [value]="customer.id">
-        {{ customer.name }}
-      </mat-option>
+    <mat-select formControlName="customer"
+      [placeholder]="(customers$ | async)?.length && 'Choose a customer' || 'Loading...'">
+      <ng-container *ngIf="(customers$ | async) as customers">
+        <mat-option *ngFor="let customer of customers" [value]="customer.id">
+          {{ customer.name }}
+        </mat-option>
+      </ng-container>
     </mat-select>
   </mat-form-field>
   <mat-form-field>
@@ -22,5 +25,8 @@
     </button>
   </div>
 </form>
+<ng-template #loading>
+  <mat-spinner diameter="30"></mat-spinner>
+</ng-template>
 
-<app-process-order></app-process-order>
+<router-outlet></router-outlet>

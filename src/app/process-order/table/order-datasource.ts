@@ -30,7 +30,7 @@ export class OrderDataSource extends DataSource<Order> {
     // Combine everything that affects the rendered data into one update
     // stream for the data-table to consume.
     const dataMutations = [
-      this.orderService.find(1, 'data 1', 'data 2'),
+      this.orderService.find('1', 'data 1', 'data 2'),
       this.paginator.page,
       this.sort.sortChange
     ];

@@ -18,11 +18,11 @@ export class TableComponent implements OnInit {
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['id', 'created_at'];
 
-  constructor(private OrderService: OrderService) {
+  constructor(private orderService: OrderService) {
 
   }
 
   ngOnInit() {
-    this.dataSource = new OrderDataSource(this.paginator, this.sort, this.OrderService);
+    this.dataSource = new OrderDataSource(this.paginator, this.sort, this.orderService);
   }
 }
