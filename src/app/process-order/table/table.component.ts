@@ -16,7 +16,7 @@ export class TableComponent implements OnInit {
   dataSource: OrderDataSource;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'created_at'];
+  displayedColumns = ['id', 'customerName', 'customerEmail', 'created_at', 'courierDelivery', 'deliveryMethod', 'totalPrice'];
 
   constructor(private orderService: OrderService) {
 

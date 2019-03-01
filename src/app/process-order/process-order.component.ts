@@ -31,8 +31,8 @@ export class ProcessOrderComponent implements OnInit {
   }
 
   private getTotalAmountToInvoice(orders: Order[]) {
-    this.totalAmountToInvoice = orders.reduce((total: any, nextOrder: Order) => {
-      return total + parseInt(nextOrder.charge_customer.total_price, 10);
+    this.totalAmountToInvoice = orders.reduce((total: number, nextOrder: Order) => {
+      return total + parseFloat(nextOrder.charge_customer.total_price);
     }, 0);
   }
 }

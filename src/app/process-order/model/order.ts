@@ -5,23 +5,28 @@ export interface Order {
     recipient: {
         name: string,
         email: string
-    },
+    };
     total_price: {
         currency: string,
         amount: number
-    }
+    };
     delivery: {
         courier: string,
         method: string
-    },
+    };
     charge_customer: {
         currency: string,
         total_price: string
-    }
+    };
+    totalItemPrice: number;
 }
 
-interface Item {
+export interface Item {
     id: string;
     name: string;
     quantity: number;
+    total_price: {
+        currency: string,
+        amount: string
+    };
 }
