@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { delay, tap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 
 import { CustomerService } from './customer.service';
 import { Customer } from './model/customer';
@@ -34,7 +34,6 @@ export class FormComponent implements OnInit {
   ngOnInit() {
     this.customers$ = this.customerService.findAll();
     this.form$ = this.route.queryParams.pipe(
-      delay(2000),
       tap((form: Form) => this.fillUpForm(form))
     );
   }

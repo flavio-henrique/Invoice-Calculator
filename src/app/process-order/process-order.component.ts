@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { delay, switchMap, tap } from 'rxjs/operators';
+import { switchMap, tap } from 'rxjs/operators';
 
 import { Form } from '../form/model/form';
 import { Order } from './model/order';
@@ -11,23 +11,27 @@ import { OrderService } from './order.service';
   selector: 'app-process-order',
   templateUrl: './process-order.component.html',
   styleUrls: ['./process-order.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProcessOrderComponent implements OnInit {
 
   form: Form;
   orders$: Observable<Array<Order>>;
   totalAmountToInvoice: number;
+  isLoading = true;
 
   constructor(private orderService: OrderService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
+    const loadOrders = (form) => this.orderService.find(form.customer, form.startDate, form.endDate).pipe(
+      tap((orders: Array<Order>) => this.getTotalAmountToInvoice(orders))
+    );
+
     this.orders$ = this.activatedRoute.queryParams.pipe(
-      delay(2000),
+      tap(() => this.isLoading = true),
       tap((form: Form) => this.form = form),
-      switchMap((form: Form) => this.orderService.find(form.customer, form.startDate, form.endDate).pipe(
-        tap((orders: Array<Order>) => this.getTotalAmountToInvoice(orders))
-      )));
+      switchMap((form: Form) => loadOrders(form)),
+      tap(() => this.isLoading = false),
+    );
   }
 
   private getTotalAmountToInvoice(orders: Order[]) {

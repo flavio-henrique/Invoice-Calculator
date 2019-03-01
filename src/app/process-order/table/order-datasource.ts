@@ -1,9 +1,9 @@
 import { DataSource } from '@angular/cdk/collections';
 import { MatPaginator, MatSort } from '@angular/material';
-import { merge, Observable } from 'rxjs';
+import { merge, Observable, of } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { Order } from '../model/order';
-import { OrderService } from '../order.service';
 
 /**
  * Data source for the Table view. This class should
@@ -16,9 +16,10 @@ export class OrderDataSource extends DataSource<Order> {
   constructor(
     private paginator: MatPaginator,
     private sort: MatSort,
-    private orderService: OrderService
+    orders: Order[]
   ) {
     super();
+    this.data = orders;
   }
 
   /**
@@ -27,39 +28,26 @@ export class OrderDataSource extends DataSource<Order> {
    * @returns A stream of the items to be rendered.
    */
   connect(): Observable<Array<Order>> {
-    // Combine everything that affects the rendered data into one update
-    // stream for the data-table to consume.
     const dataMutations = [
-      this.orderService.find('1', 'data 1', 'data 2'),
-      this.paginator.page,
-      this.sort.sortChange
+      of(this.data),
+      this.sort.sortChange,
+      this.paginator.page
     ];
 
-    // Set the paginator's length
-    // this.paginator.length = this.data.length;
-
-    return merge(...dataMutations);
+    return merge(...dataMutations).pipe(
+      map(() => {
+        return this.getPagedData(this.getSortedData([...this.data]));
+      })
+    );
   }
 
-  /**
-   *  Called when the table is being destroyed. Use this function, to clean up
-   * any open connections or free any held resources that were set up during connect.
-   */
   disconnect() { }
 
-  /**
-   * Paginate the data (client-side). If you're using server-side pagination,
-   * this would be replaced by requesting the appropriate data from the server.
-   */
   private getPagedData(data: Array<Order>) {
     const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
     return data.splice(startIndex, this.paginator.pageSize);
   }
 
-  /**
-   * Sort the data (client-side). If you're using server-side sorting,
-   * this would be replaced by requesting the appropriate data from the server.
-   */
   private getSortedData(data: Array<Order>) {
     if (!this.sort.active || this.sort.direction === '') {
       return data;
@@ -69,7 +57,12 @@ export class OrderDataSource extends DataSource<Order> {
       const isAsc = this.sort.direction === 'asc';
       switch (this.sort.active) {
         case 'created_at': return compare(a.created_at, b.created_at, isAsc);
-        case 'id': return compare(+a.id, +b.id, isAsc);
+        case 'id': return compare(a.id, b.id, isAsc);
+        case 'customerName': return compare(a.id, b.id, isAsc);
+        case 'customerEmail': return compare(a.id, b.id, isAsc);
+        case 'courierDelivery': return compare(a.id, b.id, isAsc);
+        case 'deliveryMethod': return compare(a.id, b.id, isAsc);
+        case 'totalPrice': return compare(+a.id, +b.id, isAsc);
         default: return 0;
       }
     });

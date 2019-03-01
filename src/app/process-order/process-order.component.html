@@ -1,8 +1,21 @@
-<div *ngIf="orders$ | async as orders" class="card-group">
-    <mat-card><b>Range Date:</b><br> From {{ form?.startDate | date }} to {{ form?.endDate | date }}</mat-card>
-    <mat-card><b>Total number os days:</b><br> {{ form?.endDate | amDifference: form?.startDate :'days' : true}}</mat-card>
-    <mat-card><b>Number of orders:</b><br> {{ orders.length }}</mat-card>
-    <mat-card><b>Total amount to invoice: </b><br>$ {{ totalAmountToInvoice }}</mat-card>
-</div>
+<ng-container *ngIf="orders$ | async as orders">
 
-<app-table></app-table>
+    <div *ngIf="!isLoading" class="card-group">
+        <mat-card><b>Range Date:</b><br> From {{ form?.startDate | date }} to {{ form?.endDate | date }}</mat-card>
+        <mat-card><b>Total number os days:</b><br> {{ form?.endDate | amDifference: form?.startDate :'days' :
+            true}}</mat-card>
+        <mat-card><b>Number of orders:</b><br> {{ orders.length }}</mat-card>
+        <mat-card><b>Total amount to invoice: </b><br>$ {{ totalAmountToInvoice }}</mat-card>
+    </div>
+    <app-table *ngIf="!isLoading" [orders]="orders"></app-table>
+
+</ng-container>
+
+<div *ngIf="isLoading">
+    <div class="card-group">
+        <mat-card class="loading-card"></mat-card>
+        <mat-card class="loading-card"></mat-card>
+        <mat-card class="loading-card"></mat-card>
+        <mat-card class="loading-card"></mat-card>
+    </div>
+</div>
