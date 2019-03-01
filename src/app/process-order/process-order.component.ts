@@ -1,11 +1,11 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-
-import { OrderService } from './order.service';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
+import { delay, switchMap, tap } from 'rxjs/operators';
+
 import { Form } from '../form/model/form';
-import { delay, map, tap, merge, switchMap } from 'rxjs/operators';
 import { Order } from './model/order';
+import { OrderService } from './order.service';
 
 @Component({
   selector: 'app-process-order',
@@ -15,21 +15,24 @@ import { Order } from './model/order';
 })
 export class ProcessOrderComponent implements OnInit {
 
-  form$: Observable<Form>;
+  form: Form;
   orders$: Observable<Array<Order>>;
+  totalAmountToInvoice: number;
 
   constructor(private orderService: OrderService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
-    const observable = this.activatedRoute.queryParams.pipe(
+    this.orders$ = this.activatedRoute.queryParams.pipe(
       delay(2000),
-      map((form: Form) => form),
-      switchMap((form: Form) => of([form, this.orderService.find(form.customer, form.startDate, form.endDate)]))
-    );
-    this.form$ = observable.pipe(map(([form]) => form)) as Observable<Form>;
-    this.form$.subscribe(console.log)
-    this.orders$ = observable.pipe(map(([, orders]) => orders)) as unknown as Observable<Array<Order>>;
-    this.orders$.subscribe(console.log);
+      tap((form: Form) => this.form = form),
+      switchMap((form: Form) => this.orderService.find(form.customer, form.startDate, form.endDate).pipe(
+        tap((orders: Array<Order>) => this.getTotalAmountToInvoice(orders))
+      )));
   }
 
+  private getTotalAmountToInvoice(orders: Order[]) {
+    this.totalAmountToInvoice = orders.reduce((total: any, nextOrder: Order) => {
+      return total + parseInt(nextOrder.charge_customer.total_price, 10);
+    }, 0);
+  }
 }

@@ -1,9 +1,8 @@
-<div class="card-group">
-    <mat-card><b>Total amount to invoice:</b><br> $2.000.000</mat-card>
-    <mat-card><b>Number of orders:</b><br> 3</mat-card>
-    <mat-card><b>Total amount to invoice:</b><br> $2.000.000</mat-card>
-    <mat-card><b>Total number os days:</b><br> 30</mat-card>
-    <mat-card><b>Range Date:</b><br> From 2/7/2019 to 2/11/2019</mat-card>
+<div *ngIf="orders$ | async as orders" class="card-group">
+    <mat-card><b>Range Date:</b><br> From {{ form?.startDate | date }} to {{ form?.endDate | date }}</mat-card>
+    <mat-card><b>Total number os days:</b><br> {{ form?.endDate | amDifference: form?.startDate :'days' : true}}</mat-card>
+    <mat-card><b>Number of orders:</b><br> {{ orders.length }}</mat-card>
+    <mat-card><b>Total amount to invoice: </b><br>$ {{ totalAmountToInvoice }}</mat-card>
 </div>
 
 <app-table></app-table>
