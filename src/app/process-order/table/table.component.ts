@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator, MatSort } from '@angular/material';
+import { MatDialog, MatDialogConfig, MatPaginator, MatSort } from '@angular/material';
 
+import { ItemDialogComponent } from '../item-dialog/item-dialog.component';
 import { Order } from '../model/order';
 import { OrderDataSource } from './order-datasource';
 
@@ -17,10 +18,24 @@ export class TableComponent implements OnInit {
   @Input() orders: Array<Order>;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'customerName', 'customerEmail', 'created_at', 'courierDelivery', 'deliveryMethod', 'totalPrice'];
+  displayedColumns = ['id', 'customerName', 'customerEmail', 'created_at', 'courierDelivery', 'deliveryMethod', 'totalPrice', 'items'];
 
-  constructor() {
+  constructor(public dialog: MatDialog) {
 
+  }
+
+  openModal(order: Order) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.data = order.items;
+    dialogConfig.width = '700px';
+    const dialogRef = this.dialog.open(ItemDialogComponent, dialogConfig);
+    console.log(order);
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('Dialog was closed');
+      console.log(result);
+    });
   }
 
   ngOnInit() {

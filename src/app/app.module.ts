@@ -6,6 +6,7 @@ import {
   MatButtonModule,
   MatCardModule,
   MatDatepickerModule,
+  MatDialogModule,
   MatFormFieldModule,
   MatGridListModule,
   MatIconModule,
@@ -28,6 +29,7 @@ import { MomentModule } from 'ngx-moment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormComponent } from './form/form.component';
+import { ItemDialogComponent } from './process-order/item-dialog/item-dialog.component';
 import { ProcessOrderComponent } from './process-order/process-order.component';
 import { TableComponent } from './process-order/table/table.component';
 
@@ -36,7 +38,8 @@ import { TableComponent } from './process-order/table/table.component';
     AppComponent,
     FormComponent,
     TableComponent,
-    ProcessOrderComponent
+    ProcessOrderComponent,
+    ItemDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -49,6 +52,7 @@ import { TableComponent } from './process-order/table/table.component';
     MatInputModule,
     FormsModule,
     MatButtonModule,
+    MatDialogModule,
     HttpClientModule,
     ReactiveFormsModule,
     MatTableModule,
@@ -64,6 +68,9 @@ import { TableComponent } from './process-order/table/table.component';
     MatMenuModule,
     MatProgressSpinnerModule,
     MomentModule
+  ],
+  entryComponents: [
+    ItemDialogComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
