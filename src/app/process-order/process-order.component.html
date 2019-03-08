@@ -2,8 +2,7 @@
 
     <div *ngIf="!isLoading" class="card-group">
         <mat-card><b>Range Date:</b><br> From {{ form?.startDate | date }} to {{ form?.endDate | date }}</mat-card>
-        <mat-card><b>Total number os days:</b><br> {{ form?.endDate | amDifference: form?.startDate :'days' :
-            true}}</mat-card>
+        <mat-card><b>Total number os days:</b><br> {{ form?.endDate | amDifference: form?.startDate :'days' : true}}</mat-card>
         <mat-card><b>Number of orders:</b><br> {{ orders.length }}</mat-card>
         <mat-card><b>Total amount to invoice: </b><br>$ {{ totalAmountToInvoice }}</mat-card>
     </div>
