@@ -30,12 +30,7 @@ export class TableComponent implements OnInit {
     dialogConfig.autoFocus = true;
     dialogConfig.data = order.items;
     dialogConfig.width = '700px';
-    const dialogRef = this.dialog.open(ItemDialogComponent, dialogConfig);
-    console.log(order);
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('Dialog was closed');
-      console.log(result);
-    });
+    this.dialog.open(ItemDialogComponent, dialogConfig);
   }
 
   ngOnInit() {
