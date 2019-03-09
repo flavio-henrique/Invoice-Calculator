@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material';
 
 import { Item } from '../model/order';
@@ -6,7 +6,8 @@ import { Item } from '../model/order';
 @Component({
   selector: 'app-item-dialog',
   templateUrl: './item-dialog.component.html',
-  styleUrls: ['./item-dialog.component.scss']
+  styleUrls: ['./item-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ItemDialogComponent implements OnInit {
 

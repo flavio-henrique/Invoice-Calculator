@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -40,9 +40,9 @@ export class FormComponent implements OnInit {
 
   private fillUpForm(form: Form) {
     this.formGroup = this.formBuilder.group({
-      customer: [form.customer],
-      startDate: [form.startDate],
-      endDate: [form.endDate]
+      customer: [form.customer, Validators.required],
+      startDate: [form.startDate, Validators.required],
+      endDate: [form.endDate, Validators.required]
     });
   }
 
@@ -53,7 +53,7 @@ export class FormComponent implements OnInit {
     return formCloned;
   }
 
-  onSubmit(data: any) {
+  onSubmit(data: Form) {
     this.router.navigate(['process-order'], { relativeTo:  this.route, queryParams: this.parseToIsoStringDate(data) });
   }
 

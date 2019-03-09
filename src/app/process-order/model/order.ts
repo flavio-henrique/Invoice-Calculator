@@ -6,10 +6,6 @@ export interface Order {
         name: string,
         email: string
     };
-    total_price: {
-        currency: string,
-        amount: number
-    };
     delivery: {
         courier: string,
         method: string
@@ -18,7 +14,7 @@ export interface Order {
         currency: string,
         total_price: string
     };
-    totalItemPrice: number;
+    totalItemPrice?: number;
 }
 
 export interface Item {
