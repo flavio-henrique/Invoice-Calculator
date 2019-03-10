@@ -1,0 +1,50 @@
+<div class="mat-elevation-z8">
+  <mat-table class="full-width-table" [dataSource]="dataSource" matSort aria-label="Elements">
+
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Invoice</mat-header-cell>
+      <mat-cell data-label="Invoice" *matCellDef="let row">{{ row.id }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="customerName">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Customer Name</mat-header-cell>
+      <mat-cell data-label="Customer Name" *matCellDef="let row">{{ row.recipient.name }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="customerEmail">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Customer Email</mat-header-cell>
+      <mat-cell data-label="Customer Email" *matCellDef="let row">{{ row.recipient.email }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="created_at">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Created at</mat-header-cell>
+      <mat-cell data-label="Created at" *matCellDef="let row">{{ row.created_at | date }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="courierDelivery">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Courier Delivery</mat-header-cell>
+      <mat-cell data-label="Courier Delivery" *matCellDef="let row">{{ row.delivery.courier }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="deliveryMethod">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Delivery Method</mat-header-cell>
+      <mat-cell data-label="Delivery Method" *matCellDef="let row">{{ row.delivery.method }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="totalPrice">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Total Price</mat-header-cell>
+      <mat-cell data-label="Total Price" *matCellDef="let row">€ {{ row.totalItemPrice }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="items">
+      <mat-header-cell *matHeaderCellDef>Items</mat-header-cell>
+      <mat-cell data-label="Items" *matCellDef="let row"><button mat-button color="primary" (click)="openModal(row)">Open Items</button></mat-cell>
+    </ng-container>
+
+    <mat-header-row  *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row  *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+  <mat-paginator #paginator [length]="dataSource?.data?.length" [pageIndex]="0" [pageSize]="50" [pageSizeOptions]="[25, 50, 100, 250]">
+  </mat-paginator>
+</div>

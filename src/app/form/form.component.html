@@ -1,0 +1,29 @@
+<form *ngIf="form$ | async" [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)" class="form">
+  <mat-form-field>
+    <mat-select formControlName="customer"
+      [placeholder]="(customers$ | async)?.length && 'Choose a customer' || 'Loading...'">
+      <ng-container *ngIf="(customers$ | async) as customers">
+        <mat-option *ngFor="let customer of customers" [value]="customer.id">
+          {{ customer.name }}
+        </mat-option>
+      </ng-container>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput formControlName="startDate" [matDatepicker]="pickerStartDate" placeholder="Choose a start date">
+    <mat-datepicker-toggle matSuffix [for]="pickerStartDate"></mat-datepicker-toggle>
+    <mat-datepicker #pickerStartDate></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput formControlName="endDate" [matDatepicker]="pickerEndDate" placeholder="Choose an end date">
+    <mat-datepicker-toggle matSuffix [for]="pickerEndDate"></mat-datepicker-toggle>
+    <mat-datepicker #pickerEndDate></mat-datepicker>
+  </mat-form-field>
+  <div class="form-element">
+    <button mat-raised-button color="primary" type="submit" class="button" [disabled]="!formGroup.valid">
+      Submit Form
+    </button>
+  </div>
+</form>
+
+<router-outlet></router-outlet>

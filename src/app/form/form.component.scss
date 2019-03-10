@@ -1,0 +1,19 @@
+.form-element {
+    text-align: center;
+    > button{
+        margin-top: 10px;
+    }
+}
+
+form {
+    display: flex;
+    flex-wrap: wrap;
+    > * {
+        flex: 1;
+        margin: 20px;
+    }
+}
+
+mat-spinner {
+    margin: 20px;
+}
