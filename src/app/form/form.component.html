@@ -1,7 +1,6 @@
 <form *ngIf="form$ | async" [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)" class="form">
   <mat-form-field>
-    <mat-select formControlName="customer"
-      [placeholder]="(customers$ | async)?.length && 'Choose a customer' || 'Loading...'">
+    <mat-select formControlName="customer" placeholder="Choose a customer">
       <ng-container *ngIf="(customers$ | async) as customers">
         <mat-option *ngFor="let customer of customers" [value]="customer.id">
           {{ customer.name }}
