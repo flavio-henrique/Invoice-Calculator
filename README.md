@@ -6,7 +6,6 @@ It's a SPA based on Angular version 7.2.0, it was choosed this tech stack becaus
 
 ![Screenshot](Invoice-app.jpg)
 
-
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
