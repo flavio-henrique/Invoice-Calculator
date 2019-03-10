@@ -4,6 +4,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 It's a SPA based on Angular version 7.2.0, it was choosed this tech stack because of the agility that Angular CLI provides, it's a great platform as a whole and based in the Invoice Calculator solution as well. It was used the latest good practices mentioned by Angular like `ngIf and Async Pipe`. It was implemented a simple approach of state persistence using some data through the URL that allows the user reload the app and still get the last data inputted.
 
+![Screenshot](Invoice app.jpg)
 
 ## Development server
 
